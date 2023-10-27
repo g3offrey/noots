@@ -1,0 +1,46 @@
+{{ define "content" }} {{ block "details" . }}
+<article id="note-details">
+  <header>
+    <a class="back-link" href="/">Back</a>
+    <h1>{{ .Title }}</h1>
+    {{ if .Archived }}
+    <mark id="archived-mark">Archived</mark>
+    {{ end }}
+  </header>
+  <p>{{ .Content }}</p>
+  <footer>
+    {{ if .Archived }}
+    <button
+      class="archive-button"
+      hx-post="/notes/{{ .ID }}/unarchive"
+      hx-target="#note-details"
+      hx-swap="outerHTML transition:true"
+    >
+      Unarchive
+    </button>
+    {{ else }}
+    <button
+      class="archive-button"
+      hx-post="/notes/{{ .ID }}/archive"
+      hx-target="#note-details"
+      hx-swap="outerHTML transition:true"
+    >
+      Archive
+    </button>
+    {{ end }}
+    <button
+      role="button"
+      class="delete-button secondary"
+      hx-delete="/notes/{{ .ID }}"
+    >
+      Delete
+    </button>
+  </footer>
+</article>
+{{ end }} {{ end }} {{ define "styles"}}
+<style>
+  .back-link {
+    float: right;
+  }
+</style>
+{{ end }}

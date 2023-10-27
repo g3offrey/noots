@@ -1,0 +1,46 @@
+{{ define "content" }}
+<div class="search-container">
+  <input
+    type="search"
+    name="search"
+    placeholder="Search ..."
+    hx-trigger="keyup changed delay:150ms, search"
+    hx-post="/notes/search"
+    hx-target="#notes-list"
+    hx-swap="outerHTML transition:true"
+  />
+  <a class="new-note-button" role="button" href="/notes/new">New Note</a>
+</div>
+<h5>Your notes :</h5>
+{{ block "notes" .}}
+<ul id="notes-list">
+  {{ range $index, $value := . }}
+  <li>
+    {{ if $value.Archived }}
+    <a class="archived" href="/notes/{{ $value.ID }}">{{ $value.Title }}</a>
+    {{ else }}
+    <a href="/notes/{{ $value.ID }}">{{ $value.Title }}</a>
+    {{ end }}
+  </li>
+  {{ end }}
+</ul>
+{{ end }} {{ end }} {{ define "styles" }}
+<style>
+  .search-container {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .search-container input[type="search"] {
+    width: auto;
+    flex-grow: 1;
+  }
+
+  .archived {
+    color: red;
+    text-decoration: line-through;
+  }
+</style>
+{{ end }}

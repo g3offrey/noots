@@ -1,0 +1,28 @@
+{{ define "content" }}
+<form hx-post="/notes/new">
+  <label for="title">Title</label>
+  <input type="text" name="title" id="title" />
+  <label for="content">Content</label>
+  <textarea name="content" id="content"></textarea>
+  <div class="actions-container">
+    <input type="submit" value="Save" />
+    <a class="secondary" role="button" href="/">Back</a>
+  </div>
+</form>
+{{ end }} {{ define "styles" }}
+<style>
+  .actions-container {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .actions-container > * {
+    flex-grow: 1;
+  }
+
+  .actions-container input[type="submit"] {
+    width: auto;
+    margin: 0;
+  }
+</style>
+{{ end}}
